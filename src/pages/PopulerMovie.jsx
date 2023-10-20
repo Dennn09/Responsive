@@ -1,20 +1,20 @@
 import React from 'react'
-import { useMovieDataPopulerQuery } from '../services/User/get-data-movie-populer'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useMovieDataPopulerQueryBinar } from '../services/API-BINAR/get-data-movie-populer-binar'
 export const PopulerMovie = () => {
 
   const [PageNow, setPageNow] = useState(1)
   const navigate = useNavigate()
-  const {data : fetchUser} = useMovieDataPopulerQuery({
+  const {data : fetchUser} = useMovieDataPopulerQueryBinar({
     page : PageNow
   })
 
   const renderDataPupuler = () => {
-    return fetchUser?.results?.map((value) => (
+    return fetchUser?.data?.map((value) => (
       <div key={value.id} className='w-[20rem] h-[35rem] mt-5 mx-4 flex flex-col hover:border border-emerald-50  '
       onClick={() => {
-        navigate(`/DetailMovie/${value.id}`,{
+        navigate(`/Render/${value.id}`,{
           state:{
             idMovie : value.id
           }

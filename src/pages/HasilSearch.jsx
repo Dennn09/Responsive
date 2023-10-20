@@ -15,6 +15,8 @@ export const HasilSearch = () => {
     return <p>Loading...</p>; 
   }
 
+  console.log(search)
+
   const renderMovie = () => {
     if (!search.results || search.results.length === 0) {
       return <p>No results found.</p>;
@@ -22,7 +24,7 @@ export const HasilSearch = () => {
     return search?.results?.map((value) => (
       <div key={value.id} className='w-[20rem] h-[35rem] mt-5 mx-4 flex flex-col hover:border border-emerald-50  '
       onClick={() => {
-        navigate(`/DetailMovie/${value.id}`,{
+        navigate(`/Render/${value.id}`,{
           state:{
             idMovie : value.id
           }
@@ -43,7 +45,7 @@ export const HasilSearch = () => {
     <div className=' bg-black h-full'>
     <div className='flex justify-between items-center px-20'>
      <h1 className='text-white text-[2rem] font-bold'>{query}</h1>
-     <a href='/' className='text-white absolute top-2 right-2 bg-red-500 p-2 rounded-full'>Back to Home</a>
+     <a href='/dashboard' className='text-white absolute top-2 right-2 bg-red-500 p-2 rounded-full'>Back to Home</a>
  
     </div>
       <div className='flex flex-wrap justify-center text-center text-white'>

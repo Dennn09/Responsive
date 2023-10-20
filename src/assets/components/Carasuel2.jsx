@@ -1,23 +1,26 @@
 import React from "react";
-import { useMovieDataQuery } from "../../services/User/get-data-movie";
 import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { useNavigate } from "react-router-dom";
+import { useMovieDataPopulerQueryBinar } from "../../services/API-BINAR/get-data-movie-populer-binar";
 
-export const Carasuel = (props) => {
+export const Carasuel2 = (props) => {
   const navigate = useNavigate();
   const [PageNow, setPageNow] = useState(1);
 
-  const { data: fetchUser } = useMovieDataQuery({
+  const { data: fetchUser } = useMovieDataPopulerQueryBinar({
     page: PageNow,
   });
 
-  
+  console.log(fetchUser, "data");
 
   const renderMovieList = () => {
-    return fetchUser?.results?.map((value) => (
-      <div key={value.id} className="w-full h-[100vh] flex flex-col relative">
+    return fetchUser?.data?.map((value) => (
+      <div
+        key={value.id}
+        className="w-[100vw] h-[100vh] flex flex-col relative"
+      >
         <div
           // className='w-full h-full bg-cover bg-center'
           className=" w-full relative bg bg-center bg-cover bg-no-repeat min-h-screen"
@@ -26,17 +29,13 @@ export const Carasuel = (props) => {
           }}
         >
           <div className=" flex justify-between px-10 p-2">
-            <h1 className="font-bold text-[2em] text-red-600">MovieList</h1>
+            {/* <h1 className="font-bold text-[2em] text-red-600">MovieList</h1> */}
             {/* <input
               type="text"
               placeholder="What do you want to watch?"
               className=" bg-transparent border border-red-600 rounded-full w-80 focus:border-red-500 p-2"
             /> */}
-            <div>
-              <button className="bg-red-500 h-3/4 w-20  text-white rounded-full">
-                login
-              </button>
-            </div>
+            <div></div>
           </div>
 
           <div className=" h-full w-[50%] ml-7 flex flex-col justify-center items-start space-y-3">
@@ -44,18 +43,34 @@ export const Carasuel = (props) => {
               {value.title}
             </h2>
             <h2 className="text-white text-start">{value.overview}</h2>
-        
+
             <button
               onClick={() => {
-                navigate(`/DetailMovie/${value.id}`, {
+                navigate(`/Render/${value.id}`, {
                   state: {
                     idMovie: value.id,
                   },
                 });
               }}
-              className="bg-red-500 rounded-full w-36 h-8 text-white font-bold"
+              className="bg-red-500 rounded-full w-44 h-8 text-white font-bold"
             >
-              detail
+              <div className="flex justify-between px-3">
+                <span>Watch Trailer</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"
+                  />
+                </svg>
+              </div>
             </button>
           </div>
         </div>
@@ -66,7 +81,14 @@ export const Carasuel = (props) => {
   // console.log(fetchUser, "data")
   return (
     <div>
-      <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}  showArrows={false} stopOnHover={false}>
+      <Carousel
+        autoPlay
+        infiniteLoop
+        showThumbs={false}
+        showStatus={false}
+        showArrows={false}
+        stopOnHover={false}
+      >
         {renderMovieList()}
       </Carousel>
     </div>
