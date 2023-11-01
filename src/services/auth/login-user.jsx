@@ -3,7 +3,23 @@ import { API_ENDPOINT } from "../../utils/api-endpoint"
 import http2 from "../../utils/http2";
 import { CookieKeys, CookieStorage } from "../../utils/cookies";
 import { toast } from 'react-hot-toast'; 
+import { useNavigate } from "react-router-dom";
+
+
 //unutk nge hit API
+
+
+export const LoginRedux = async (input) => {
+  return await http2.post(API_ENDPOINT.LOGIN, input)
+}
+
+// export const pindah = () => {
+//  const navigate=useNavigate()
+//  navigate("/dashboard")
+ 
+// }
+
+
 const LoginUser = async (input) => {
 
   return await http2.post(API_ENDPOINT.LOGIN, input).then((result) => {
@@ -14,6 +30,7 @@ const LoginUser = async (input) => {
      
       window.location.href = "/dashboard";
       //  toast.success("Login Sukses")
+      console.log(result, "sadasdasss")
       return result 
       
     }).catch((err) => {

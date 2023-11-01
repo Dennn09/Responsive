@@ -3,14 +3,26 @@ import { Toaster, toast } from "react-hot-toast";
 import { useGetDataUser } from "../../services/auth/get_user";
 import { CookieStorage, CookieKeys } from "../../utils/cookies"; // Import CookieStorage and CookieKeys
 import { Carasuel2 } from "../../assets/components/Carasuel2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMovieDataPopulerQueryBinar } from "../../services/API-BINAR/get-data-movie-populer-binar";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { LogOut } from "../../redux/action/auth.login";
+import { dataMovie } from "../../redux/action/data.Movie";
 // import SearchImage from '../assets/img/Search.svg'
 
 export const Dashboard = () => {
   const navigate = useNavigate();
   const [dataPopuler, setdataPopuler] = useState(1);
+  const DataRedux = useSelector((state) => state.auth);
+
+  // Sekarang Anda memiliki akses ke data Redux di komponen ini
+  const dispatch = useDispatch()
+  // const Data = useSelector((state) => state.makup);
+
+  console.log(DataRedux, "DataRedux")
+  console.log(DataRedux.token, "DataRedux TOken")
+
 
   const { data: fetchUser } = useMovieDataPopulerQueryBinar({
     page: dataPopuler,
@@ -37,13 +49,7 @@ export const Dashboard = () => {
       handleSimpanClick();
     }
   };
-  console.log(SearchData, "tesss");
-  //    const filteredMovies = SearchMovie?.filter((movie) =>
-  //    movie.title.toLowerCase().includes(SearchData.toLowerCase())
-  //  );
-
-  //  console.log(fetchUser)
-
+  
   const renderDataPupuler4 = () => {
     const dataToRender = fetchUser?.data?.slice(14, 19); // Batasi hanya 4 data pertama
 
@@ -74,12 +80,22 @@ export const Dashboard = () => {
     toast.success("Login Sukses");
   }
 
-  console.log(dataToken);
+  console.log(dataToken, "weeeeee");
   const handleLogout = () => {
-    // Hapus token dari penyimpanan
-    CookieStorage.remove(CookieKeys.AuthToken);
-    window.location.href = "/";
+    dispatch(LogOut());
   };
+
+  const datamovieredux = useSelector((state) => state.dataMoviePopuler);
+const getdatamovie = () => {
+  dispatch(dataMovie())
+}
+  console.log(datamovieredux, "datamovieredux")
+
+  useEffect(() => {
+    getdatamovie()
+  }, [])
+  
+
   //  <div>
   //   <p>Halaman Dashboard</p>
   //   <button onClick={handleLogout} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[9rem]">Logout</button>

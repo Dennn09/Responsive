@@ -2,6 +2,12 @@ import { useQuery } from "@tanstack/react-query"
 import { API_ENDPOINT } from "../../utils/api-endpoint"
 import http2 from "../../utils/http2";
 
+
+
+export const reduxDataMoviePopuler = async () => {
+    return await http2.get(API_ENDPOINT.NOW_POPULER_BINAR )
+}
+
 //unutk nge hit API
 const fetchDataMoviePopulerBinar = async ({queryKey}) => {
     // const { data } = await http.get(`${API_ENDPOINT.NOW_POPULER}?page=${page ? page :1}`)

@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { UseLoginUser } from "../../services/auth/login-user";
 import { useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import background from '../../assets/img/movie list bg.jpeg'
 import GoogleLogin from "../../assets/components/GoogleLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginUserRe } from "../../redux/action/auth.login";
 export const LoginPage = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const { mutate: loginUser, isSuccess } = UseLoginUser();
-  // if (isSuccess) {
-  //   console.log ("Berhasil Login");
-  //   // console.log(dataUser.data.token, "dataaa")
-  //   sessionStorage.setItem("token", dataUser.data.token )
-  //   localStorage.setItem("token", dataUser.data.token )
-  // }
+
+  const DataRedux = useSelector((state) => state.auth);
+
+  console.log(DataRedux, "data")
 
   const handleInput = (e) => {
     if (e.target.id === "email") {
@@ -27,17 +27,42 @@ export const LoginPage = () => {
     }
   };
 
-  const login = () => {
-    loginUser({
-      email: Email,
-      password: Password,
-    });
-  };
+  // const login = () => {
+  //   dispatch({
+  //     email: Email,
+  //     password: Password,
+  //   });
+  // };
+
+  const login =  () => {
+    // const berhasi = await
+     dispatch(LoginUserRe(
+        {
+          email: Email,
+          password: Password,
+        }
+        
+      ))
+      // if(berhasi){
+      //   navigate("/dashboard")
+      // }
+
+    }
+
+    
+  useEffect(() => {
+    if (DataRedux.isLogin === true) {
+      navigate('/dashboard')
+    }
+  }, [dispatch(LoginUserRe)])
   const handleEnterPress = (e) => {
     if (e.key === "Enter") {
       login();
     }
   };
+
+  
+
   console.log(Email, "email");
   console.log(Password, "Password");
 

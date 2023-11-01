@@ -1,0 +1,19 @@
+import { createSlice } from "@reduxjs/toolkit";
+
+
+const initialState = {
+    token : "",
+    isLogin : "",
+    user : "",
+}
+
+const authLoginSlice = createSlice({
+    name : "LoginAuth",
+    initialState , 
+    reducers : {
+
+    }
+})
+
+
+export default authLoginSlice.reducer;
