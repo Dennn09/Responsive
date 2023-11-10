@@ -5,6 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    screens:{
+      mobile: "414px",
+      tablet: "800px",
+      web: "1280px",
+    }
   },
   plugins: [require("tw-elements/dist/plugin.cjs")],
   darkMode: "class"

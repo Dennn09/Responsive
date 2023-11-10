@@ -11,6 +11,7 @@ import { HomePage } from '../pages/HomePage'
 import { ReduxPage } from '../pages/redux/ReduxPage'
 import { LoginRedux } from '../pages/LoginRedux'
 import TokenProtected from '../assets/components/TokenProtected'
+import { Responsive } from '../pages/Responsive'
 // import { Carasuel2 } from '../assets/components/Carasuel2'
 
 export const RouterList = () => {
@@ -18,8 +19,10 @@ export const RouterList = () => {
     <BrowserRouter>
     <Routes>
         {/* <Route path='/' element={<ReduxPage/>}/> */}
+        
+        <Route path='/' element={<Responsive/>}/>
         <Route path='/LoginRedux' element={<LoginRedux/>}/>
-        <Route path='/' element={<HomePage/>}/>
+        <Route path='/HomePage' element={<HomePage/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/Login' element={<LoginPage/>}/>
         <Route path='/dashboard' element={

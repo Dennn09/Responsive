@@ -133,12 +133,14 @@ const getdatamovie = () => {
       <button
         onClick={handleLogout}
         className="bg-red-500 hover:bg-red-700 rounded-md text-white font-bold py-2 px-4  absolute top-1 right-4"
+
       >
         Logout
       </button>
+      <button className=""></button>
       <h1 className="font-bold text-[2em] text-red-600 absolute top-1 left-4">MovieList</h1>
-
     </div>
+  
     //   <Toaster position="top-center" reverseOrder={false} />
     // </div>
   );
